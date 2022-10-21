@@ -36,7 +36,7 @@
 ehthumbs.db
 Thumbs.db
 
-# Visual Studio #
+# Visual Studio & node #
 ######################
 node_modules/
 .vscode/
