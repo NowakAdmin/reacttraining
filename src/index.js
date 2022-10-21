@@ -49,6 +49,7 @@ class Game extends React.Component {
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        stepclick: null,
       }],
       stepNumber: 0,
       xIsNext: true,
@@ -66,6 +67,8 @@ class Game extends React.Component {
     this.setState({
       history: history.concat([{
         squares: squares,
+        stepclick: i,
+        stepclickchar: this.state.xIsNext ? 'X' : 'O',
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
@@ -85,8 +88,9 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
+      const stepclick = checkPosition(step.stepclick);
       const desc = move ?
-        'Przejdź do ruchu #' + move :
+        'Przejdź do ruchu #' + move + ' Wstawiono: ' + step.stepclickchar + ' na współrzędnych -> Kolumna: ' + stepclick[0] + ' Wiersz: ' + stepclick[1] :
         'Przejdź na początek gry';
       return (
         <li key={move}>
@@ -119,11 +123,12 @@ class Game extends React.Component {
   }
 }
 
-  // ========================================
+// ========================================
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Game />);
 
+// check if same char in a line
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -142,4 +147,19 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+// return col and row based on this.renderSquare(i) from Square()
+function checkPosition(i) {
+  const position = [
+    [1, 1],
+    [2, 1],
+    [3, 1],
+    [1, 2],
+    [2, 2],
+    [3, 2],
+    [1, 3],
+    [2, 3],
+    [3, 3],
+  ];
+  return position[i];
 }
