@@ -38,5 +38,8 @@ Thumbs.db
 
 # Visual Studio #
 ######################
+.vscode/*
+.vscode?
+/.vscode
 .vscode
 sftp.json
